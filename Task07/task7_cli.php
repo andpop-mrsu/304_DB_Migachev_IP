@@ -5,6 +5,8 @@ define('DB_PATH', __DIR__ . '/db.sqlite');
 try {
     $db = new PDO('sqlite:' . DB_PATH);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sqlScript = file_get_contents(__DIR__ . '/db_init.sql');
+    $db->exec($sqlScript);
 } catch (PDOException $e) {
     echo "Database connection error: " . $e->getMessage() . "\n";
     exit(1);
